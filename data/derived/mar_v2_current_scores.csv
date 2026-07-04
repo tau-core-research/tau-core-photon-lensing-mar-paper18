@@ -1,0 +1,13 @@
+Axis,Score,Reason,Max,Percent
+S1 Spatial Null Survival,2,Spatial shuffle kontrollokkal szemben a synthetic recovery és későbbi validációkban a Tau-template túlél.,2,100.0
+S2 Orientation Specificity,1,"A real orientation jobb, de random orientation/filament-strength kontrollok továbbra is részben versenyképesek.",2,50.0
+S3 Baryon Independence,1,"Baryon kontroll után marad jel, de stress mild/medium esetben baryon-keveredés még lehetséges.",2,50.0
+S4 Filament-Only Control,1,"Full template többlete van, de filament-only kontroll több stress esetben erős.",2,50.0
+S5 Systematics Resistance,1,"Systematics-separated regresszió javított, de hard stress esetben systematics még dominálhat.",2,50.0
+S6 Incremental Explanatory Power,1,"ΔR²_tau pozitív synthetic és no-Tau kontrollban eltűnik, de még nem real-data és nem teljesen robusztus.",2,50.0
+S7 Residualized Partial Correlation,1,Partial correlation pozitív Tau-injection és null no-Tau kontrollban; még synthetic.,2,50.0
+S8 Scale Stability,1,"B1c-ben több smoothing skálán pozitív validation jel, legjobb skála σ≈2.2, de split szórás marad.",2,50.0
+S9 Multi-Observable Consistency,1,"B1d/B1d-2 megmutatta κ+γ pipeline-t, fizikai shear mockban részleges pass, de nagy split-szórás.",2,50.0
+S10 Null–Matter Link,1,"B1e synthetic null–matter mismatch test működött, de transfer proxy egyszerű és nem valódi rotáció.",2,50.0
+S11 Out-of-Sample Replication,1,"B1c train/validation split partial pass, független survey nincs.",2,50.0
+S12 Theoretical Parsimony,1,"A T_tau template egyszerű és nem körkörös, de a teljes kontrollhierarchia és smoothing választás még fejlesztendő.",2,50.0

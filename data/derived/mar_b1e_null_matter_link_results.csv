@@ -1,0 +1,3 @@
+test,Delta_R2_tau_validation,PartialCorr_NullMatterMismatch_Tau,Permutation_p_partial_corr,Permutation_p_delta_r2,R2_controls,R2_full,Tau_coef_full
+lensing_residual_after_matter_transfer_controls,0.0995491707671321,0.2644538134099959,0.0033222591362126247,0.0033222591362126247,-0.32493564438545386,-0.22538647361832176,0.10940337963718935
+matter_dynamics_residual_controls,-0.02336960931295118,,,,-0.3515710215184986,-0.3749406308314498,0.03852414850013274

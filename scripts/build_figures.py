@@ -106,11 +106,107 @@ def build_systematics_figure() -> None:
     save(fig, "fig_mar_delta_r2_after_controls.pdf")
 
 
+def build_v2_scorecard_figure() -> None:
+    df = pd.read_csv(DERIVED / "mar_v2_current_scores.csv")
+    df = df.sort_values("Percent")
+    fig, ax = plt.subplots(figsize=(9.6, 6.6))
+    colors = np.where(df["Score"] >= 2, "#2f8f4e", "#d4a62a")
+    ax.barh(df["Axis"], df["Percent"], color=colors)
+    ax.set_xlim(0, 105)
+    ax.set_xlabel("score fraction within axis (%)")
+    ax.set_title("MAR v2 scorecard: 13/24 controlled synthetic/mock support")
+    ax.grid(axis="x", alpha=0.25)
+    for y, (_, row) in enumerate(df.iterrows()):
+        ax.text(
+            min(float(row["Percent"]) + 2, 101),
+            y,
+            f"{int(row['Score'])}/{int(row['Max'])}",
+            va="center",
+            fontsize=8,
+        )
+    save(fig, "fig_mar_v2_scorecard.pdf")
+
+
+def build_b1c_oos_scale_figure() -> None:
+    df = pd.read_csv(DERIVED / "mar_b1c_oos_scale_validation_aggregate.csv")
+    fig, ax = plt.subplots(figsize=(8.4, 5.4))
+    styles = {
+        "tau_injected": ("#2374ab", "o", "Tau-injected"),
+        "no_tau_control": ("#7a7a7a", "s", "No-Tau control"),
+    }
+    for condition, group in df.groupby("condition"):
+        color, marker, label = styles.get(condition, ("#333333", "o", condition))
+        group = group.sort_values("scale_sigma")
+        ax.errorbar(
+            group["scale_sigma"],
+            group["Delta_R2_mean"],
+            yerr=group["Delta_R2_std"],
+            marker=marker,
+            lw=2,
+            capsize=3,
+            color=color,
+            label=label,
+        )
+    ax.axhline(0, color="black", lw=1)
+    ax.set_xlabel(r"template smoothing scale $\sigma$")
+    ax.set_ylabel(r"validation $\Delta R^2_\tau$")
+    ax.set_title("B1c out-of-sample scale validation")
+    ax.legend(frameon=False)
+    ax.grid(alpha=0.25)
+    save(fig, "fig_mar_b1c_oos_scale_validation.pdf")
+
+
+def build_b1d2_physical_shear_figure() -> None:
+    df = pd.read_csv(DERIVED / "mar_b1d2_physical_shear_aggregate.csv")
+    order = ["kappa", "gamma1_physical", "gamma2_physical", "joint_physical_kappa_gamma"]
+    labels = [r"$\kappa$", r"$\gamma_1$", r"$\gamma_2$", "joint"]
+    df = df.set_index("observable").loc[order].reset_index()
+    x = np.arange(len(df))
+    fig, ax = plt.subplots(figsize=(8.6, 5.0))
+    ax.bar(x, df["Delta_R2_mean"], yerr=df["Delta_R2_std"], capsize=3, color="#4f81bd")
+    ax.axhline(0, color="black", lw=1)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.set_ylabel(r"validation $\Delta R^2_\tau$")
+    ax.set_title("B1d-2 physical shear mock")
+    ax.grid(axis="y", alpha=0.25)
+    save(fig, "fig_mar_b1d2_physical_shear.pdf")
+
+
+def build_b1e_null_matter_link_figure() -> None:
+    df = pd.read_csv(DERIVED / "mar_b1e_null_matter_link_results.csv")
+    labels = ["lensing after\nmatter-transfer controls", "matter-dynamics\ncontrol"]
+    fig, ax = plt.subplots(figsize=(8.2, 4.9))
+    bars = ax.bar(labels, df["Delta_R2_tau_validation"], color=["#2f8f4e", "#b45f5f"])
+    ax.axhline(0, color="black", lw=1)
+    ax.set_ylabel(r"validation $\Delta R^2_\tau$")
+    ax.set_title("B1e Null-Matter Link toy control")
+    ax.grid(axis="y", alpha=0.25)
+    for bar, (_, row) in zip(bars, df.iterrows()):
+        p = row.get("Permutation_p_partial_corr")
+        label = "control"
+        if pd.notna(p):
+            label = f"p={p:.4f}"
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            bar.get_height() + 0.01,
+            label,
+            ha="center",
+            va="bottom",
+            fontsize=9,
+        )
+    save(fig, "fig_mar_b1e_null_matter_link.pdf")
+
+
 def main() -> None:
     build_protocol_figure()
     build_sensitivity_figure()
     build_stress_figure()
     build_systematics_figure()
+    build_v2_scorecard_figure()
+    build_b1c_oos_scale_figure()
+    build_b1d2_physical_shear_figure()
+    build_b1e_null_matter_link_figure()
     print("PAPER18_FIGURES_BUILT")
 
 

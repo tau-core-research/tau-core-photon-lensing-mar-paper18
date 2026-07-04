@@ -21,7 +21,7 @@
 \setcounter{tocdepth}{2}
 
 \title{\textbf{Photon-Lensing Morphological Alignment Residual}\\
-\large A Synthetic Tau Core Bridge Protocol for Non-Circular Lensing Residual Tests}
+\large A Controlled Synthetic/Mock Tau Core Bridge Protocol for Non-Circular Lensing Residual Tests}
 \author{Tau Core Research}
 \date{Paper 18 draft package, 2026}
 
@@ -36,7 +36,7 @@ different but claim-safe diagnostic question: if some lensing residual contains
 a morphology/readout component, can a source-side morphology template recover
 it without being built from the residual itself?
 
-This paper packages a synthetic photon-lensing bridge protocol for a
+This paper packages a controlled synthetic/mock photon-lensing bridge protocol for a
 Morphological Alignment Residual (MAR).  The source-side template is
 \[
   T_{\tau}(x)=B_{\rm env}(x)A_f(x)M_{bf}(x),
@@ -50,7 +50,8 @@ mismatch.  The primary statistic is
 reported against random-orientation, spatial-shuffle, baryon, filament-only,
 systematics, and no-Tau controls.
 
-In the included synthetic package, the toy recovery gives
+In the included v2 synthetic/mock package, the current MAR score is
+\(Q_{\rm MAR}=13/24\).  The toy recovery gives
 \(C_{\tau}=0.8745\), compared with random-orientation mean \(0.3938\),
 spatial-shuffle mean \(0.0123\), baryon-template correlation \(0.0741\), and
 filament-only correlation \(0.4015\).  A sensitivity ladder detects injected
@@ -59,13 +60,16 @@ are weaker: \(Q_{\rm MAR}\) scores are \(5/10\), \(4/10\), \(4/10\), and
 \(2/10\) for mild, medium, hard, and no-Tau control cases.  A
 systematics-separated ridge regression leaves positive but modest
 \(\Delta R^2_{\tau}\) increments for mild/medium/hard cases and a near-zero
-increment for the no-Tau control.
+increment for the no-Tau control.  The v2 extension adds out-of-sample scale
+validation, a physical flat-sky shear mock for \(\kappa,\gamma_1,\gamma_2\),
+and a toy Null--Matter Link diagnostic connecting lensing residuals to a
+matter-dynamics proxy.
 
-These are synthetic protocol statistics.  They are not real-data lensing
+These are synthetic/mock protocol statistics.  They are not real-data lensing
 detections, dark-matter falsifications, likelihood ratios, or physical
 validation of Tau Core.  The contribution is a reproducible non-circular
-search grammar for photon-lensing residuals and a concrete bridge from
-source-side morphology to future lensing-readout tests.
+search grammar for photon-lensing residuals, with explicit controls showing
+where the route strengthens and where it remains vulnerable.
 \end{abstract}
 
 \tableofcontents
@@ -76,14 +80,16 @@ This manuscript should be evaluated as a synthetic methodology and bridge
 protocol paper.  It does not analyze real survey maps, does not detect a
 lensing anomaly, does not solve dark matter, and does not prove Tau Core.
 
-\noindent\textbf{Status:} synthetic photon-lensing MAR protocol; not empirical
-validation.
+\noindent\textbf{Status:} controlled synthetic/mock photon-lensing MAR v2
+protocol; not empirical validation.
 
 The main claim is deliberately narrow:
 \begin{quote}
 A non-circular source-side morphology template can be defined for lensing
-residual tests, and the included synthetic package shows how such a template
-survives, weakens, or fails under increasingly strict controls.
+residual tests, and the included synthetic/mock package shows how such a
+template survives, weakens, or fails under increasingly strict controls,
+including out-of-sample scale checks, physical shear mocks, and a toy
+Null--Matter Link route.
 \end{quote}
 
 The package is useful because it preserves negative pressure on the hypothesis.
@@ -200,8 +206,8 @@ synthetic maps, not survey data.}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.48\linewidth]{figures/fig03_tau_template.png}
-\includegraphics[width=0.48\linewidth]{figures/fig04_lensing_residual.png}
+\includegraphics[width=0.48\linewidth]{figures/fig03_tau_template_initial.png}
+\includegraphics[width=0.48\linewidth]{figures/fig04_lensing_residual_initial.png}
 \caption{Synthetic MAR template and synthetic lensing residual.  The residual
 contains an injected MAR-like component plus noise.  This figure illustrates
 the method, not an observational detection.}
@@ -377,13 +383,145 @@ templates are included.  The no-Tau control is near zero.}
 \label{fig:delta-r2}
 \end{figure}
 
+\section{MAR v2 extension: scale, shear, and Null--Matter Link}
+
+The v2 source package extends the original convergence-only synthetic MAR
+audit in three directions.  These additions do not turn the paper into a
+real-data result.  They make the bridge protocol more falsifiable and closer
+to the observables that a real weak-lensing endpoint would need.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/fig_mar_v2_scorecard.pdf}
+\caption{MAR v2 scorecard.  The current aggregate score is
+\(Q_{\rm MAR}=13/24\).  The score is a package-local audit score, not a
+likelihood, p-value, or physical validation statistic.}
+\label{fig:v2-scorecard}
+\end{figure}
+
+\subsection{B1c: out-of-sample scale validation}
+
+The B1c check asks whether the source-side MAR template survives when the
+template smoothing scale is varied and the training/validation region is split
+spatially.  It therefore attacks a common toy-model failure mode: a template
+may work only because the same map region or scale was used to define and
+score it.  For scale \(\sigma\), the validation increment is
+\[
+  \Delta R^2_{\tau,{\rm val}}(\sigma)
+  =
+  R^2_{{\rm full},{\rm val}}(\sigma)
+  -
+  R^2_{{\rm controls},{\rm val}}(\sigma).
+\]
+The Tau-injected synthetic cases retain positive validation increments over a
+range of scales, while the no-Tau controls remain near zero.  The result is not
+scale-free: split and scale scatter remain visible, so B1c supports the route
+only as a controlled synthetic validation ladder.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.84\linewidth]{figures/fig_mar_b1c_oos_scale_validation.pdf}
+\caption{B1c out-of-sample scale validation.  The Tau-injected aggregate keeps
+positive validation \(\Delta R^2_{\tau}\) over several template scales, while
+the no-Tau control remains close to zero.  Error bars show split scatter.}
+\label{fig:b1c}
+\end{figure}
+
+\subsection{B1d-2: physical shear mock}
+
+The first shear extension in the package is deliberately friendly and is kept
+as a diagnostic.  The stricter B1d-2 version uses the flat-sky weak-lensing
+relation between convergence and shear:
+\[
+  \tilde{\gamma}_1(\ell)
+  =
+  \frac{\ell_x^2-\ell_y^2}{\ell^2}\,\tilde{\kappa}(\ell),
+  \qquad
+  \tilde{\gamma}_2(\ell)
+  =
+  \frac{2\ell_x\ell_y}{\ell^2}\,\tilde{\kappa}(\ell).
+  \label{eq:flat-sky-shear}
+\]
+This matters because a photon-lensing readout cannot be credible if it only
+works for a scalar convergence map while failing in the spin-2 shear channels.
+The B1d-2 aggregate is summarized in Table~\ref{tab:b1d2}.  The positive
+increments in \(\gamma_1\) and \(\gamma_2\) show that the synthetic MAR
+template can survive a physically structured shear projection.  The joint
+\(\kappa+\gamma\) increment is smaller, so the result is encouraging but not a
+validation-grade multi-observable closure.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{L{0.33\linewidth}rrr}
+\toprule
+Observable & mean \(\Delta R^2_{\tau}\) & mean partial corr. & mean Tau coef.\\
+\midrule
+\(\kappa\) & 0.0656 & 0.3239 & 0.1932\\
+\(\gamma_1\) physical & 0.3658 & 0.2533 & 0.1583\\
+\(\gamma_2\) physical & 0.4091 & 0.4103 & 0.1838\\
+joint \(\kappa+\gamma\) & 0.0477 & -- & 0.3733\\
+\bottomrule
+\end{tabular}
+\caption{B1d-2 physical shear mock aggregate.  The shear channels are
+synthetic and generated from the package model, but they obey the flat-sky
+convergence--shear relation in Eq.~\eqref{eq:flat-sky-shear}.}
+\label{tab:b1d2}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.84\linewidth]{figures/fig_mar_b1d2_physical_shear.pdf}
+\caption{B1d-2 physical shear mock.  The positive \(\gamma_1\) and
+\(\gamma_2\) validation increments show that the MAR route is not restricted
+to a convergence-only toy in this synthetic package.}
+\label{fig:b1d2}
+\end{figure}
+
+\subsection{B1e: Null--Matter Link toy diagnostic}
+
+The B1e check introduces a toy residual that compares a lensing residual with
+a matter-dynamics proxy.  Define
+\[
+  \Delta_{\rm NM}
+  =
+  \Delta\kappa_{\tau}
+  -
+  {\cal T}\!\left[\delta a_{\tau}\right],
+  \label{eq:null-matter-link}
+\]
+where \({\cal T}\) is a frozen transfer proxy from the matter-dynamics
+residual channel into the lensing channel.  A Tau-compatible synthetic case
+expects \(\Delta_{\rm NM}\) to retain alignment with \(T_{\tau}\) after the
+matter-transfer controls are included.  A pure matter-dynamics control should
+not promote the same lensing residual.
+
+In the package, the lensing-after-transfer test gives
+\(\Delta R^2_{\tau}=0.0995\), partial correlation \(0.2645\), and permutation
+\(p=0.0033\).  The matter-dynamics residual control gives
+\(\Delta R^2_{\tau}=-0.0234\).  This is a useful falsifiable toy route: it
+does not prove a real dark-sector link, but it defines how such a link would
+have to survive source-frozen controls.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.76\linewidth]{figures/fig_mar_b1e_null_matter_link.pdf}
+\caption{B1e Null--Matter Link toy diagnostic.  The lensing residual after
+matter-transfer controls retains a positive Tau-template increment, while the
+matter-dynamics residual control is negative.  This is synthetic/mock evidence
+for protocol coherence, not a physical dark-sector measurement.}
+\label{fig:b1e}
+\end{figure}
+
 \section{Connection to Paper 17}
 
 Paper 17 separated shared-parent covariance \(Z_{\rm shared}\) from
 morphology/orientation support \(Z_{\rm orient}\).  Paper 18 should be read in
-that discipline.  MAR is not evidence simply because a filamentary template
-correlates with a residual.  In a future real-data endpoint, MAR would need to
-be reported in a two-axis form:
+that discipline.  The v2 package strengthens the orientation/morphology side
+by adding out-of-sample scale checks, physical shear mocks, and a toy
+matter-link route.  It still does not close the shared-parent axis.  MAR is not
+evidence simply because a filamentary template correlates with a residual.  In
+a future real-data endpoint, MAR would need to be reported in a two-axis form:
 \[
   (Z_{\rm shared}^{\rm MAR}, Z_{\rm orient}^{\rm MAR}).
 \]
@@ -403,12 +541,16 @@ systematics;
 \item blind construction of \(T_{\tau}\) before scoring \(\Delta\kappa\);
 \item no-Tau, baryon-only, filament-only, random-orientation, mask-only, and
 systematics-template controls;
+\item convergence and shear consistency checks in \(\kappa,\gamma_1,\gamma_2\)
+with source-native map-making and covariance;
+\item a source-frozen matter-transfer proxy before any Null--Matter Link score
+is computed;
 \item mock injection with known MAR and non-MAR components;
 \item held-out scoring and independent implementation.
 \end{enumerate}
 Until those conditions are met, the status remains:
 \[
-  \texttt{SYNTHETIC\_PHOTON\_LENSING\_MAR\_PROTOCOL\_ONLY}.
+  \texttt{CONTROLLED\_SYNTHETIC\_MOCK\_PHOTON\_LENSING\_MAR\_V2\_PROTOCOL}.
 \]
 
 \section{Reproducibility package}
@@ -425,6 +567,10 @@ The original package section and figures are preserved under
   \texttt{source\_package\_docs/},\qquad
   \texttt{source\_package\_figures/}.
 \]
+The v2 package narrative is preserved as
+\[
+  \texttt{source\_package\_docs/tau\_core\_photon\_lensing\_mar\_v2.md}.
+\]
 The paper uses only compact derived CSV artifacts under
 \[
   \texttt{data/derived/}.
@@ -432,18 +578,23 @@ The paper uses only compact derived CSV artifacts under
 
 \section{Conclusion}
 
-Paper 18 records a synthetic photon-lensing MAR bridge protocol.  The protocol
-is stronger than a note because it supplies a concrete non-circular template,
-a toy recovery, a sensitivity ladder, a realistic stress test, a
-systematics-separated regression, and explicit failure conditions.
+Paper 18 records a controlled synthetic/mock photon-lensing MAR bridge
+protocol.  The protocol is stronger than a note because it supplies a concrete
+non-circular template, a toy recovery, a sensitivity ladder, a realistic stress
+test, a systematics-separated regression, out-of-sample scale validation, a
+physical flat-sky shear mock, a toy Null--Matter Link diagnostic, and explicit
+failure conditions.  The current v2 audit score is \(Q_{\rm MAR}=13/24\), a
+package-local score rather than a physical validation statistic.
 
 The claim remains narrow.  The paper does not prove Tau Core and does not
 detect a lensing residual in real data.  Its contribution is methodological:
 it defines how a Tau Core-inspired photon-lensing morphology residual could be
 searched for without fitting the residual into the template, and it shows that
-the route is promising in toy data but vulnerable to realistic systematics.
-The next scientific step is a source-native mock-catalog and survey-mask
-implementation with the MAR template frozen before endpoint scoring.
+the route is promising in controlled synthetic/mock data but vulnerable to
+realistic systematics and shared-parent ambiguity.  The next scientific step is
+a source-native mock-catalog and survey-mask implementation with the MAR
+template, shear operator, and matter-transfer proxy frozen before endpoint
+scoring.
 
 \bibliographystyle{plain}
 \bibliography{refs}

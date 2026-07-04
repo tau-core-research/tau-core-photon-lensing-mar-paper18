@@ -4,7 +4,7 @@ Private Paper 18 scaffold:
 
 **Photon-Lensing Morphological Alignment Residual: a synthetic Tau Core bridge protocol**
 
-This repository turns `tau_core_photon_lensing_mar_package.zip` into a
+This repository turns `tau_core_photon_lensing_mar_v2_package.zip` into a
 reproducible paper package. It preserves the source package as provenance,
 extracts compact derived CSV summaries, builds paper figures, compiles a PDF,
 and prepares an arXiv source archive.
@@ -26,13 +26,21 @@ built from the lensing residual itself.
 The package result is claim-safe:
 
 ```text
+v2 MAR score:                    Q_MAR = 13/24
 toy recovery:                    C_tau = 0.8745
 random-orientation control mean: 0.3938
 spatial-shuffle control mean:    0.0123
 sensitivity threshold:           epsilon_tau <= 0.01 in the tested noise ladder
 stress-test MAR Q scores:        mild 5/10, medium 4/10, hard 4/10, no-tau 2/10
 systematics-separated Delta R2:  positive for mild/medium/hard, near zero for no-tau
+B1c OOS scale validation:        positive Tau-injected split signal, but scale/split scatter remains
+B1d-2 physical shear mock:       positive gamma1/gamma2 and kappa support in synthetic flat-sky mock
+B1e Null-Matter Link toy:        positive lensing-after-transfer signal; matter-dynamics control remains negative
 ```
+
+The v2 extension is still a controlled synthetic/mock protocol. It is not
+observational evidence and not validation-grade photon-lensing physics. In
+short, it is not observational evidence.
 
 ## Does Not Claim
 
@@ -43,6 +51,8 @@ systematics-separated Delta R2:  positive for mild/medium/hard, near zero for no
 - It does not derive the photon or lensing operator from bare Tau principles.
 - It does not claim that the MAR template is unique or physically validated.
 - It is not physical validation of Tau Core or of the MAR template.
+- It does not claim that the Null-Matter Link toy is a real dark-sector
+  measurement.
 
 ## Included Data
 
@@ -87,7 +97,7 @@ and where it weakens under controls.
 The correct current status is:
 
 ```text
-SYNTHETIC_PHOTON_LENSING_MAR_PROTOCOL_ONLY
+CONTROLLED_SYNTHETIC_MOCK_PHOTON_LENSING_MAR_V2_PROTOCOL
 ```
 
 ## Relation to Other Tau Core Papers
@@ -98,4 +108,7 @@ SYNTHETIC_PHOTON_LENSING_MAR_PROTOCOL_ONLY
 - Paper 17 gives the shared-parent covariance versus orientation-only
   classifier.
 - Paper 18 supplies a photon-lensing MAR bridge protocol that should later be
-  tested under the Paper 17 shared-parent/orientation discipline.
+  tested under the Paper 17 shared-parent/orientation discipline.  The v2
+  package extends the protocol from convergence-only MAR checks to
+  out-of-sample scale validation, physical shear mocks, and a toy Null-Matter
+  Link residual.

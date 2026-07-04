@@ -22,9 +22,39 @@ def main() -> None:
     thresholds = pd.read_csv(DERIVED / "mar_sensitivity_thresholds.csv")
     stress = pd.read_csv(DERIVED / "mar_realistic_stress_test_results.csv")
     sep = pd.read_csv(DERIVED / "mar_systematics_separation_results.csv")
+    v2_scores = pd.read_csv(DERIVED / "mar_v2_current_scores.csv")
+    b1c = pd.read_csv(DERIVED / "mar_b1c_oos_scale_validation_aggregate.csv")
+    b1d2 = pd.read_csv(DERIVED / "mar_b1d2_physical_shear_aggregate.csv")
+    b1e = pd.read_csv(DERIVED / "mar_b1e_null_matter_link_results.csv")
+
+    score_total = float(v2_scores["Score"].sum())
+    score_max = float(v2_scores["Max"].sum())
+    tau_b1c = b1c[b1c["condition"] == "tau_injected"].copy()
+    best_b1c = tau_b1c.sort_values("Delta_R2_mean", ascending=False).iloc[0]
+
+    def b1c_at(condition: str, scale: float, column: str) -> float:
+        row = b1c[
+            (b1c["condition"] == condition)
+            & (abs(b1c["scale_sigma"] - scale) < 1e-12)
+        ]
+        if row.empty:
+            raise KeyError(f"{condition} scale={scale} {column}")
+        return float(row[column].iloc[0])
+
+    def b1d2_value(observable: str, column: str) -> float:
+        row = b1d2[b1d2["observable"] == observable]
+        if row.empty:
+            raise KeyError(f"{observable} {column}")
+        return float(row[column].iloc[0])
+
+    def b1e_value(test: str, column: str) -> float:
+        row = b1e[b1e["test"] == test]
+        if row.empty:
+            raise KeyError(f"{test} {column}")
+        return float(row[column].iloc[0])
 
     rows: list[tuple[str, float | str]] = [
-        ("claim_boundary", "synthetic_methodology_not_empirical_validation"),
+        ("claim_boundary", "controlled_synthetic_mock_protocol_not_observational_evidence"),
         ("toy_c_tau", stat_value(toy, "C_tau: Corr(Δκ, T_tau)")),
         ("toy_random_orientation_mean", stat_value(toy, "Random-orientation mean")),
         ("toy_spatial_shuffle_mean", stat_value(toy, "Spatial-shuffle mean")),
@@ -32,6 +62,37 @@ def main() -> None:
         ("toy_filament_only_corr", stat_value(toy, "Filament-only Corr")),
         ("sensitivity_min_epsilon_overall", float(thresholds["epsilon_tau_min_detected"].min())),
         ("sensitivity_max_min_detected", float(thresholds["epsilon_tau_min_detected"].max())),
+        ("mar_v2_score_total", score_total),
+        ("mar_v2_score_max", score_max),
+        ("mar_v2_score_fraction", score_total / score_max),
+        ("b1c_best_tau_injected_scale_sigma", float(best_b1c["scale_sigma"])),
+        ("b1c_best_tau_injected_delta_r2_mean", float(best_b1c["Delta_R2_mean"])),
+        ("b1c_best_tau_injected_partial_corr_mean", float(best_b1c["PartialCorr_mean"])),
+        ("b1c_tau_injected_scale_2_2_delta_r2_mean", b1c_at("tau_injected", 2.2, "Delta_R2_mean")),
+        ("b1c_no_tau_scale_2_2_delta_r2_mean", b1c_at("no_tau_control", 2.2, "Delta_R2_mean")),
+        ("b1d2_kappa_delta_r2_mean", b1d2_value("kappa", "Delta_R2_mean")),
+        ("b1d2_gamma1_physical_delta_r2_mean", b1d2_value("gamma1_physical", "Delta_R2_mean")),
+        ("b1d2_gamma2_physical_delta_r2_mean", b1d2_value("gamma2_physical", "Delta_R2_mean")),
+        ("b1d2_joint_physical_kappa_gamma_delta_r2_mean", b1d2_value("joint_physical_kappa_gamma", "Delta_R2_mean")),
+        (
+            "b1e_lensing_residual_after_matter_transfer_delta_r2",
+            b1e_value("lensing_residual_after_matter_transfer_controls", "Delta_R2_tau_validation"),
+        ),
+        (
+            "b1e_lensing_residual_after_matter_transfer_partial_corr",
+            b1e_value(
+                "lensing_residual_after_matter_transfer_controls",
+                "PartialCorr_NullMatterMismatch_Tau",
+            ),
+        ),
+        (
+            "b1e_lensing_residual_after_matter_transfer_permutation_p",
+            b1e_value("lensing_residual_after_matter_transfer_controls", "Permutation_p_partial_corr"),
+        ),
+        (
+            "b1e_matter_dynamics_residual_controls_delta_r2",
+            b1e_value("matter_dynamics_residual_controls", "Delta_R2_tau_validation"),
+        ),
     ]
 
     for _, row in stress.iterrows():
