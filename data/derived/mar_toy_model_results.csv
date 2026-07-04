@@ -1,0 +1,10 @@
+Statistic,Value
+"C_tau: Corr(Δκ, T_tau)",0.8745173976798898
+Random-orientation mean,0.3938273775473068
+Random-orientation std,0.008916542486549484
+Random-orientation p-value,0.000999000999000999
+Spatial-shuffle mean,0.012300891491590553
+Spatial-shuffle std,0.14635959134350887
+Spatial-shuffle p-value,0.000999000999000999
+Baryon template Corr,0.07408259587080791
+Filament-only Corr,0.4014613751291176

@@ -1,0 +1,101 @@
+# Tau Core Photon-Lensing MAR Paper 18
+
+Private Paper 18 scaffold:
+
+**Photon-Lensing Morphological Alignment Residual: a synthetic Tau Core bridge protocol**
+
+This repository turns `tau_core_photon_lensing_mar_package.zip` into a
+reproducible paper package. It preserves the source package as provenance,
+extracts compact derived CSV summaries, builds paper figures, compiles a PDF,
+and prepares an arXiv source archive.
+
+## Main Claim
+
+The paper defines a synthetic photon-lensing search protocol for a
+Morphological Alignment Residual (MAR):
+
+```text
+T_tau = B_env * A_f * M_bf
+C_tau = Corr(delta_kappa, T_tau)
+```
+
+where `T_tau` is built from source-side morphology handles: environment
+boundary, filament strength, and baryon-filament angular mismatch. It is not
+built from the lensing residual itself.
+
+The package result is claim-safe:
+
+```text
+toy recovery:                    C_tau = 0.8745
+random-orientation control mean: 0.3938
+spatial-shuffle control mean:    0.0123
+sensitivity threshold:           epsilon_tau <= 0.01 in the tested noise ladder
+stress-test MAR Q scores:        mild 5/10, medium 4/10, hard 4/10, no-tau 2/10
+systematics-separated Delta R2:  positive for mild/medium/hard, near zero for no-tau
+```
+
+## Does Not Claim
+
+- It does not prove Tau Core.
+- It does not analyze real survey data.
+- It does not detect a photon-lensing residual in nature.
+- It does not falsify dark matter, LCDM, GR, or standard lensing.
+- It does not derive the photon or lensing operator from bare Tau principles.
+- It does not claim that the MAR template is unique or physically validated.
+- It is not physical validation of Tau Core or of the MAR template.
+
+## Included Data
+
+Only compact synthetic derived artifacts are included:
+
+```text
+data/derived/*.csv
+figures/*.png
+paper18_submission_source/figures/*
+source_package_docs/
+source_package_figures/
+```
+
+## Reproduce
+
+```bash
+python scripts/reproduce.py
+```
+
+The command:
+
+1. rebuilds the compact Paper18 summary CSV/JSON;
+2. regenerates Paper18 PDF figures from the derived CSV files;
+3. compiles `paper18_submission_source/main.tex`;
+4. builds `arxiv_submission_source.zip`;
+5. runs public package tests;
+6. prints `PAPER18_PHOTON_LENSING_MAR_REPRODUCTION_COMPLETE`.
+
+## arXiv Source Package
+
+`arxiv_submission_source.zip` is generated from
+`paper18_submission_source/` and excludes the compiled PDF plus temporary TeX
+build products.
+
+## Scope
+
+Paper 18 is a synthetic methodology and bridge-protocol paper. It strengthens
+the Tau Core lensing/readout program by giving a concrete non-circular
+Morphological Alignment Residual statistic and by showing where it survives
+and where it weakens under controls.
+
+The correct current status is:
+
+```text
+SYNTHETIC_PHOTON_LENSING_MAR_PROTOCOL_ONLY
+```
+
+## Relation to Other Tau Core Papers
+
+- Paper 7 gives the observer-gated lensing feasibility and falsification
+  framework.
+- Paper 14 gives the cosmic-web multi-readout witness ladder.
+- Paper 17 gives the shared-parent covariance versus orientation-only
+  classifier.
+- Paper 18 supplies a photon-lensing MAR bridge protocol that should later be
+  tested under the Paper 17 shared-parent/orientation discipline.
