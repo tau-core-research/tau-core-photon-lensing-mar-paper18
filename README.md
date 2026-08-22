@@ -54,6 +54,16 @@ short, it is not observational evidence.
 - It does not claim that the Null-Matter Link toy is a real dark-sector
   measurement.
 
+## Source-Transport Boundary
+
+`T_tau` and the Null-Matter Link transfer term are terminal descriptors and
+controls, not parent optical connections. Physical non-scalar optical
+transport would additionally require independently sourced full
+body-connection holonomy or Kato transport of a varying, constant-rank access
+projector. A scalar phase/clock branch cannot fix normalized multimode optical
+orientation. The synthetic scores remain method tests and are not inverted
+into source-arrow claims.
+
 ## Included Data
 
 Only compact synthetic derived artifacts are included:
