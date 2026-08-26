@@ -76,6 +76,13 @@ source_package_docs/
 source_package_figures/
 ```
 
+## Full-4D Score Boundary
+
+`Q_MAR` is a package-local audit score. A physical photon/lensing/matter score
+must instead derive every terminal from the same nonzero source-frozen
+`E_K = (K_HH - K_std) - C K_VV^-1 C^dagger`, remove exact duplicates, and
+retain full cross-terminal covariance. Existing MAR values are unchanged.
+
 ## Reproduce
 
 ```bash
