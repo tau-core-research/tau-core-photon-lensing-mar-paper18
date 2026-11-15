@@ -29,7 +29,7 @@ def build_protocol_figure() -> None:
         (0.35, 0.58, 0.20, 0.13, "$A_f$\nfilament strength"),
         (0.35, 0.40, 0.20, 0.13, "$M_{bf}$\nbaryon-filament\nmismatch"),
         (0.66, 0.58, 0.24, 0.16, "$T_\\tau=B_{env}A_fM_{bf}$\nMAR template"),
-        (0.66, 0.28, 0.24, 0.14, "$C_\\tau=Corr(\\Delta\\kappa,T_\\tau)$\nwith controls"),
+        (0.66, 0.28, 0.24, 0.14, "$C_\\tau=\\mathrm{Corr}(\\Delta\\kappa,T_\\tau)$\nwith controls"),
     ]
     for x, y, w, h, text in boxes:
         ax.add_patch(plt.Rectangle((x, y), w, h, fc="#eef3fb", ec="#345995", lw=1.4))
@@ -62,7 +62,7 @@ def build_sensitivity_figure() -> None:
         group = group.sort_values("epsilon_tau")
         ax.plot(group["epsilon_tau"], group["C_tau"], marker="o", lw=2, label=f"noise={noise:.2f}")
     ax.set_xlabel(r"injected $\epsilon_\tau$")
-    ax.set_ylabel(r"$C_\tau=Corr(\Delta\kappa,T_\tau)$")
+    ax.set_ylabel(r"$C_\tau=\mathrm{Corr}(\Delta\kappa,T_\tau)$")
     ax.set_title("MAR sensitivity ladder")
     ax.grid(alpha=0.25)
     ax.legend(frameon=False)

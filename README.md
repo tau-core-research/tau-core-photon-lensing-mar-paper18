@@ -130,13 +130,6 @@ CONTROLLED_SYNTHETIC_MOCK_PHOTON_LENSING_MAR_V2_PROTOCOL
   out-of-sample scale validation, physical shear mocks, and a toy Null-Matter
   Link residual.
 
-<!-- BEGIN OBSERVER UPDATE 20260914 -->
-## Observer realization update (2026-09-14)
+## Upstream Ownership, Inherited Results, and Scope Boundary
 
-Different terminal labels are not independent information sources without a factorization or novelty proof. A nonzero correlation is not automatically a standard-orthogonal Tau signal.
-
-The manuscript distinguishes inherited BRAC contact, conditional coherent-state
-selection and interacting local covariance from physical observer identification,
-preparation and stable resolution. Those physical claims remain open. No
-empirical score was changed. The [dependency and source-result ledger](data/derived/observer_update_2026_09_14.json) records the assumptions and controls.
-<!-- END OBSERVER UPDATE 20260914 -->
+Within the Tau Core series (Foundation Papers I and III, Foundation IV / TD-0, Foundation V, [Paper 4 / Paper V CPR1 v1.0](https://github.com/tau-core-research/tau-core-higgs-module-paper4/blob/main/paper4_full_derivation/full_derivation.pdf#nameddest=cpr1), and Foundation VI / Paper VII-A), this repository owns only the synthetic/mock Photon-Lensing MAR v2 bridge protocol. Different terminal labels are not independent information sources without a factorization proof, a nonzero correlation is not automatically a standard-orthogonal Tau signal, and physical source occupation, preparation, detector/clock calibration, and operational stable quantizer `Q_OS` remain open; no frozen MAR v2 score is changed ([observer_update_2026_09_14.json](data/derived/observer_update_2026_09_14.json)).
